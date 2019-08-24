@@ -1,9 +1,22 @@
-const createRoute = () => {
-  return `<div class="trip-info__main">
-    <h1 class="trip-info__title">Amsterdam &mdash; ... &mdash; Amsterdam</h1>
+import {months} from './tripEvent.js';
 
-    <p class="trip-info__dates">Mar 18&nbsp;&mdash;&nbsp;21</p>
-  </div>`;
+const getCitiesFormat = (cities) => {
+  if (cities.length <= 3) {
+    return `${cities[0]} — ${cities[1]} — ${cities[2]}`;
+  } else {
+    return `${cities[0]} — ... — ${cities[cities.length - 1]}`;
+  }
 };
 
-export {createRoute};
+const getRouteTemplate = ({type, cities, photo, description, date, timeStart, timeEnd, price, options}, totalSum) => {
+  return `<div class="trip-info__main">
+    <h1 class="trip-info__title">${getCitiesFormat(Array.from(cities))}</h1>
+
+    <p class="trip-info__dates">${months[new Date(date).getMonth()]} ${new Date(date).getDate()}&nbsp;&mdash;&nbsp;${new Date(date).getDate() + 3}</p>
+  </div>
+  <p class="trip-info__cost">
+    Total: &euro;&nbsp;<span class="trip-info__cost-value">${totalSum}</span>
+  </p>`;
+};
+
+export {getRouteTemplate};
