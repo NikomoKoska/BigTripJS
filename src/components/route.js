@@ -8,7 +8,7 @@ const getCitiesFormat = (cities) => {
   }
 };
 
-const getRouteTemplate = ({type, cities, photo, description, date, timeStart, timeEnd, price, options}, totalSum) => {
+const getRouteTemplate = ({cities, date}, totalSum) => {
   return `<div class="trip-info__main">
     <h1 class="trip-info__title">${getCitiesFormat(Array.from(cities))}</h1>
 

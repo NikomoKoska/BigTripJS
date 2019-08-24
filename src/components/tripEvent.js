@@ -10,7 +10,7 @@ const getTimeDuration = (startTime, endTime) => {
   return diffTime;
 };
 
-const getTripEventTemplate = ({type, cities, photo, description, date, timeStart, timeEnd, price, options}) => {
+const getTripEventTemplate = ({type, timeStart, timeEnd, price, options}) => {
   return `<li class="trip-events__item">
     <div class="event">
       <div class="event__type">
@@ -47,7 +47,7 @@ const getTripEventTemplate = ({type, cities, photo, description, date, timeStart
   </li>`;
 };
 
-const getTripDate = ({type, cities, photo, description, date, timeStart, timeEnd, price, options}) => {
+const getTripDate = ({date}) => {
   return `<div class="day__info">
     <span class="day__counter">${new Date(date).getDate()}</span>
     <time class="day__date" datetime="2019-03-18">${months[new Date(date).getMonth()]} ${(new Date().getFullYear()).toString().slice(2, 5)}</time>
