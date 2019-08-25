@@ -1,4 +1,4 @@
-const returnEditForm = () => {
+const getEditFormTemplate = () => {
   return `<li class="trip-events__item">
     <form class="event  event--edit" action="#" method="post">
       <header class="event__header">
@@ -190,4 +190,4 @@ const returnEditForm = () => {
   </li>`;
 };
 
-export {returnEditForm};
+export {getEditFormTemplate};
