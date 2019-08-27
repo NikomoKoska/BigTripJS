@@ -27,29 +27,34 @@ let optionsArr = [
     name: `Choose seats`,
     price: 9,
     isApply: true,
+  },
+  {
+    name: `Travel by train`,
+    price: 40,
+    isApply: true,
   }
 ];
 
 const createSet = (array, maxSize, minSize = 1, probability = 0.5) => {
-  let resultCities = new Set();
+  let resultSet = new Set();
   for (let i = 0; i < array.length; i++) {
     if (Math.random() > probability) {
-      resultCities.add(array[i]);
+      resultSet.add(array[i]);
     }
-    if (resultCities.size === maxSize) {
+    if (resultSet.size === maxSize) {
       break;
     }
   }
-  if (resultCities.size === 0 && minSize === 1) {
-    resultCities.add(array[0]);
+  if (resultSet.size === 0 && minSize === 1) {
+    resultSet.add(array[0]);
   }
-  return resultCities;
+  return resultSet;
 };
 
 const getPoint = () => ({
-  type: [`bus`, `check-in`, `drive`, `flight`, `restaurant`, `ship`, `sightseeing`, `taxi`, `train`, `transport`, `trip`][Math.floor(Math.random() * 11)],
-  cities: createSet(allCities, 4),
-  photo: `http://picsum.photos/300/150?r=${Math.random()}`,
+  type: [`bus to`, `check-in at`, `drive to`, `flight to`, `restaurant at`, `ship to`, `sightseeing at`, `taxi to`, `train to`, `transport to`, `trip to`][Math.floor(Math.random() * 11)],
+  city: Array.from(createSet(allCities, 1))[0],
+  photo: [`http://picsum.photos/300/150?r=${Math.random()}`, `http://picsum.photos/300/150?r=${Math.random()}`, `http://picsum.photos/300/150?r=${Math.random()}`],
   description: Array.from(createSet(descriptionTextArr, 3)).join(` `),
   date: Date.now() + Math.floor(Math.random() * 30 + 30) * 24 * 60 * 60 * 1000,
   timeStart: {
@@ -80,9 +85,4 @@ const getFilters = () => ({
 
 // Общая стоимость
 
-let totalSum = 0;
-for (let i = 0; i < pointsObjectsArray.length; i++) {
-  totalSum += pointsObjectsArray[i].price;
-}
-
-export {getPoint, pointsObjectsArray, getMenu, getFilters, totalSum};
+export {getPoint, pointsObjectsArray, getMenu, getFilters};
