@@ -56,6 +56,7 @@ const getPoint = () => ({
   city: Array.from(createSet(allCities, 1))[0],
   photo: [`http://picsum.photos/300/150?r=${Math.random()}`, `http://picsum.photos/300/150?r=${Math.random()}`, `http://picsum.photos/300/150?r=${Math.random()}`],
   description: Array.from(createSet(descriptionTextArr, 3)).join(` `),
+  isFavorite: Boolean(Math.round(Math.random())),
   date: Date.now() + Math.floor(Math.random() * 30 + 30) * 24 * 60 * 60 * 1000,
   timeStart: {
     hours: Math.floor(Math.random() * 4) + 7,

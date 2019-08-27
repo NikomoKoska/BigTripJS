@@ -2,7 +2,7 @@ import {getMenuTemplate} from '../src/components/menu.js';
 import {getFiltersTemplate} from './components/filters.js';
 import {getSortTemplate} from './components/sort.js';
 import {TripEvent, getTripDate} from './components/tripEvent.js';
-import {TripEventEdit} from './components/editForm.js';
+import {TripEventEdit} from './components/tripEventEdit.js';
 import {getRouteTemplate} from './components/route.js';
 import {getPoint, pointsObjectsArray, getMenu, getFilters} from './data.js';
 import {render, Positions} from './utils.js';

@@ -1,11 +1,12 @@
 import {createElement} from '../utils.js';
 
 class TripEventEdit {
-  constructor({type, city, photo, description, date, timeStart, timeEnd, price, options}) {
+  constructor({type, city, photo, description, isFavorite, date, timeStart, timeEnd, price, options}) {
     this._type = type;
     this._city = city;
     this._photo = photo;
     this._description = description;
+    this._isFavorite = isFavorite;
     this._date = date;
     this._element = null;
     this._timeStart = timeStart;
@@ -132,7 +133,7 @@ class TripEventEdit {
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
           <button class="event__reset-btn" type="reset">Delete</button>
 
-          <input id="event-favorite-1" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" checked>
+          <input id="event-favorite-1" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" ${this._isFavorite ? `checked` : ``}>
           <label class="event__favorite-btn" for="event-favorite-1">
             <span class="visually-hidden">Add to favorite</span>
             <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">

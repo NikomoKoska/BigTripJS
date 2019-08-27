@@ -13,11 +13,12 @@ const getTimeDuration = (startTime, endTime) => {
 };
 
 class TripEvent {
-  constructor({type, city, photo, description, date, timeStart, timeEnd, price, options}) {
+  constructor({type, city, photo, description, isFavorite, date, timeStart, timeEnd, price, options}) {
     this._type = type;
     this._city = city;
     this._photo = photo;
     this._description = description;
+    this._isFavorite = isFavorite;
     this._date = date;
     this._element = null;
     this._timeStart = timeStart;
