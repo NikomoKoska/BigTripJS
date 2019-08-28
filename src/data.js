@@ -74,15 +74,31 @@ let pointsObjectsArray = new Array(POINTS_COUNT).fill(``).map(getPoint);
 
 // Меню
 
-const getMenu = () => ({
-  menuPoints: [`Table`, `Stats`],
-});
+const getMenu = () => ([
+  {
+    point: `Table`,
+  },
+  {
+    point: `Stat`,
+  },
+]);
 
 // Фильтры
 
-const getFilters = () => ({
-  filters: [`Everything`, `Future`, `Past`],
-});
+const getFilters = () => ([
+  {
+    title: `Everything`,
+    count: 5,
+  },
+  {
+    title: `Future`,
+    count: 4,
+  },
+  {
+    title: `Past`,
+    count: 1,
+  }
+]);
 
 // Общая стоимость
 
