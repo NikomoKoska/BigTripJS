@@ -1,4 +1,4 @@
-import {months} from './tripEvent.js';
+import {MONTHS} from './tripDate.js';
 import {tripEventsMock} from '../main.js';
 import {createElement} from '../utils.js';
 
@@ -11,9 +11,8 @@ const getCitiesFormat = () => {
 };
 
 class Route {
-  constructor(date, totalSum) {
+  constructor(date) {
     this._date = date;
-    this._totalSum = totalSum;
   }
 
   getElement() {
@@ -24,12 +23,10 @@ class Route {
   }
 
   getTemplate() {
-    return `<div><div class="trip-info__main">
+    return `<div class="trip-info__main 1">
         <h1 class="trip-info__title">${getCitiesFormat()}</h1>
-        <p class="trip-info__dates">${months[new Date(this._date).getMonth()]} ${new Date(this._date).getDate()}&nbsp;&mdash;&nbsp;${new Date(this._date).getDate() + 3}</p>
-      </div><p class="trip-info__cost">
-        Total: &euro;&nbsp;<span class="trip-info__cost-value">${this._totalSum}</span>
-      </p></div>`;
+        <p class="trip-info__dates">${MONTHS[new Date(this._date).getMonth()]} ${new Date(this._date).getDate()}&nbsp;&mdash;&nbsp;${new Date(this._date).getDate() + 1}</p>
+      </div>`;
   }
 }
 

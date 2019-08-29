@@ -170,11 +170,6 @@ main {
       align-items: center;
   -ms-flex-pack: justify; }
 
-.trip-info div {
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%; }
-
 .trip-info__main {
   width: 600px; }
 

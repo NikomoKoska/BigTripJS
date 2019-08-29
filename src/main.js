@@ -1,15 +1,14 @@
 import {Menu} from '../src/components/menu.js';
 import {Filter} from './components/filters.js';
-import {getSortTemplate} from './components/sort.js';
-import {TripEvent, getTripDate} from './components/tripEvent.js';
+import {Sort} from './components/sort.js';
+import {TripEvent} from './components/tripEvent.js';
+import {TripDate} from './components/tripDate.js';
 import {TripEventEdit} from './components/tripEventEdit.js';
 import {Route} from './components/route.js';
-import {getPoint, pointsObjectsArray, getMenu, getFilters} from './data.js';
+import {TotalSum} from './components/totalSum.js';
+import {NoTripEvent} from './components/noTripEvent.js';
+import {getPoint, getMenu, getFilters} from './data.js';
 import {render, Positions} from './utils.js';
-
-const renderComponent = (container, component, place) => {
-  container.insertAdjacentHTML(place, component);
-};
 
 const renderFilter = (filtersArrayParam) => {
   const filter = new Filter(filtersArrayParam);
@@ -83,6 +82,8 @@ const tripEventsList = document.createElement(`ul`);
 tripEventsList.classList.add(`trip-events__list`);
 tripDaysItem.appendChild(tripEventsList);
 
+// Создание объектов и массивов объектов для каждого компонента и отрисовка элементов
+
 const POINTS_COUNT = 5;
 
 const tripEventsMock = new Array(POINTS_COUNT).fill(``).map(getPoint);
@@ -90,27 +91,37 @@ const filtersArray = new Array(1).fill(``).map(getFilters);
 const menuArray = new Array(1).fill(``).map(getMenu);
 
 
-let totalSum = 0;
+let totalSumNum = 0;
 for (let i = 0; i < tripEventsMock.length; i++) {
-  totalSum += tripEventsMock[i].price;
+  totalSumNum += tripEventsMock[i].price;
   if (tripEventsMock[i].options) {
     for (let j = 0; j < tripEventsMock[i].options.length; j++) {
-      totalSum += tripEventsMock[i].options[j].price;
+      totalSumNum += tripEventsMock[i].options[j].price;
     }
   }
 }
 
-const route = new Route(new Date(), totalSum).getElement();
+const tripDate = new TripDate(new Date()).getElement();
+const noTripEvent = new NoTripEvent().getElement();
 
-console.log(route);
-
-// Отрисовка элементов
-render(mainInfoContainer, route, Positions.AFTERBEGIN);
+if (tripEventsMock.length) {
+  const route = new Route(new Date()).getElement();
+  const totalSum = new TotalSum(totalSumNum).getElement();
+  render(mainInfoContainer, route, Positions.AFTERBEGIN);
+  render(mainInfoContainer, totalSum, Positions.BEFOREEND);
+}
 menuArray.forEach((menuPoint) => renderMenu(menuPoint));
 filtersArray.forEach((filter) => renderFilter(filter));
-renderComponent(tripEventsContainer, getSortTemplate(), `afterbegin`);
+if (tripEventsMock.length) {
+  const sort = new Sort().getElement();
+  render(tripEventsContainer, sort, Positions.AFTERBEGIN);
+}
 tripEventsContainer.appendChild(tripDaysList);
-renderComponent(tripDaysItem, getTripDate(pointsObjectsArray[0]), `afterbegin`);
+if (tripEventsMock.length) {
+  render(tripDaysItem, tripDate, Positions.AFTERBEGIN);
+} else {
+  render(tripDaysItem, noTripEvent, Positions.AFTERBEGIN);
+}
 const tripEventsBlock = document.querySelector(`.trip-events__list`);
 tripEventsMock.forEach((tripEventMock) => renderTripEvent(tripEventMock));
 
