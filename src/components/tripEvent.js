@@ -1,6 +1,5 @@
 import {createElement} from '../utils.js';
 
-const months = [`JAN`, `FEB`, `MAR`, `APR`, `MAY`, `JUN`, `JUL`, `AUG`, `SEP`, `OCT`, `NOV`, `DEC`];
 const getTimeDuration = (startTime, endTime) => {
   let startTimeMins = startTime.hours * 60 + startTime.mins;
   let endTimeMins = endTime.hours * 60 + endTime.mins;
@@ -72,11 +71,4 @@ class TripEvent {
   }
 }
 
-const getTripDate = ({date}) => {
-  return `<div class="day__info">
-    <span class="day__counter">${new Date(date).getDate()}</span>
-    <time class="day__date" datetime="2019-03-18">${months[new Date(date).getMonth()]} ${(new Date().getFullYear()).toString().slice(2, 5)}</time>
-  </div>`;
-};
-
-export {TripEvent, getTripDate, months};
+export {TripEvent};
