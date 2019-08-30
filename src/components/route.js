@@ -1,6 +1,6 @@
 import {MONTHS} from './tripDate.js';
 import {tripEventsMock} from '../main.js';
-import {createElement} from '../utils.js';
+import {AbstractComponent} from './abstract-component.js';
 
 const getCitiesFormat = () => {
   if (tripEventsMock.length <= 3) {
@@ -10,16 +10,10 @@ const getCitiesFormat = () => {
   }
 };
 
-class Route {
+class Route extends AbstractComponent {
   constructor(date) {
+    super();
     this._date = date;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
   }
 
   getTemplate() {
