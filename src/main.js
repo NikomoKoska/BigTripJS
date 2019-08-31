@@ -1,14 +1,12 @@
 import {Menu} from '../src/components/menu.js';
 import {Filter} from './components/filters.js';
 import {Sort} from './components/sort.js';
-import {TripEvent} from './components/tripEvent.js';
 import {TripDate} from './components/tripDate.js';
-import {TripEventEdit} from './components/tripEventEdit.js';
 import {Route} from './components/route.js';
-import {TotalSum} from './components/totalSum.js';
 import {NoTripEvent} from './components/noTripEvent.js';
 import {getPoint, getMenu, getFilters} from './data.js';
 import {render, Positions} from './utils.js';
+import {TripController} from './controllers/TripController.js';
 
 const renderFilter = (filtersArrayParam) => {
   const filter = new Filter(filtersArrayParam);
@@ -18,54 +16,6 @@ const renderFilter = (filtersArrayParam) => {
 const renderMenu = (menuArray) => {
   const menu = new Menu(menuArray);
   render(tripControlContainer, menu.getElement(), Positions.AFTERBEGIN);
-};
-
-const renderTripEvent = (tripEventsMockParam) => {
-  const tripEvent = new TripEvent(tripEventsMockParam);
-  const tripEventEdit = new TripEventEdit(tripEventsMockParam);
-
-  const onEscKeyDown = (evt) => {
-    if (evt.key === `Escape` || evt.key === `Esc`) {
-      tripEventsBlock.replaceChild(tripEvent.getElement(), tripEventEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    }
-  };
-
-  tripEvent.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
-    tripEventsBlock.replaceChild(tripEventEdit.getElement(), tripEvent.getElement());
-    document.addEventListener(`keydown`, onEscKeyDown);
-  });
-
-  tripEventEdit.getElement().querySelector(`.event__input--destination`).addEventListener(`focus`, () => {
-    document.removeEventListener(`keydown`, onEscKeyDown);
-  });
-
-  tripEventEdit.getElement().querySelectorAll(`.event__input--time`).forEach((it) => it.addEventListener(`focus`, () => {
-    document.removeEventListener(`keydown`, onEscKeyDown);
-  }));
-
-  tripEventEdit.getElement().querySelector(`.event__input--price`).addEventListener(`focus`, () => {
-    document.removeEventListener(`keydown`, onEscKeyDown);
-  });
-
-  tripEventEdit.getElement().querySelector(`.event__input--destination`).addEventListener(`blur`, () => {
-    document.addEventListener(`keydown`, onEscKeyDown);
-  });
-
-  tripEventEdit.getElement().querySelectorAll(`.event__input--time`).forEach((it) => it.addEventListener(`blur`, () => {
-    document.addEventListener(`keydown`, onEscKeyDown);
-  }));
-
-  tripEventEdit.getElement().querySelector(`.event__input--price`).addEventListener(`blur`, () => {
-    document.addEventListener(`keydown`, onEscKeyDown);
-  });
-
-  tripEventEdit.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
-    tripEventsBlock.replaceChild(tripEvent.getElement(), tripEventEdit.getElement());
-    document.removeEventListener(`keydown`, onEscKeyDown);
-  });
-
-  render(tripEventsBlock, tripEvent.getElement(), Positions.BEFOREEND);
 };
 
 // Создание контейнеров
@@ -101,14 +51,14 @@ for (let i = 0; i < tripEventsMock.length; i++) {
   }
 }
 
+document.querySelector(`.trip-info__cost`).textContent = `Total: € ${totalSumNum}`;
+
 const tripDate = new TripDate(new Date()).getElement();
 const noTripEvent = new NoTripEvent().getElement();
 
 if (tripEventsMock.length) {
   const route = new Route(new Date()).getElement();
-  const totalSum = new TotalSum(totalSumNum).getElement();
   render(mainInfoContainer, route, Positions.AFTERBEGIN);
-  render(mainInfoContainer, totalSum, Positions.BEFOREEND);
 }
 menuArray.forEach((menuPoint) => renderMenu(menuPoint));
 filtersArray.forEach((filter) => renderFilter(filter));
@@ -123,7 +73,8 @@ if (tripEventsMock.length) {
   render(tripDaysItem, noTripEvent, Positions.AFTERBEGIN);
 }
 const tripEventsBlock = document.querySelector(`.trip-events__list`);
-tripEventsMock.forEach((tripEventMock) => renderTripEvent(tripEventMock));
+const tripController = new TripController(tripEventsBlock, tripEventsMock);
+tripController.init();
 
 export {POINTS_COUNT, tripEventsMock};
 

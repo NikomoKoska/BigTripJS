@@ -1,25 +1,18 @@
-import {createElement} from '../utils.js';
+import {AbstractComponent} from './abstract-component.js';
 
-class TripEventEdit {
+class TripEventEdit extends AbstractComponent {
   constructor({type, city, photo, description, isFavorite, date, timeStart, timeEnd, price, options}) {
+    super();
     this._type = type;
     this._city = city;
     this._photo = photo;
     this._description = description;
     this._isFavorite = isFavorite;
     this._date = date;
-    this._element = null;
     this._timeStart = timeStart;
     this._timeEnd = timeEnd;
     this._price = price;
     this._options = options;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
   }
 
   getTemplate() {

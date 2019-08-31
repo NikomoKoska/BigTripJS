@@ -1,17 +1,10 @@
-import {createElement} from '../utils.js';
+import {AbstractComponent} from './abstract-component.js';
 const MONTHS = [`JAN`, `FEB`, `MAR`, `APR`, `MAY`, `JUN`, `JUL`, `AUG`, `SEP`, `OCT`, `NOV`, `DEC`];
 
-class TripDate {
+class TripDate extends AbstractComponent {
   constructor(date) {
+    super();
     this._date = date;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
   }
 
   getTemplate() {
