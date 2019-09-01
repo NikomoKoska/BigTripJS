@@ -5,6 +5,7 @@ const getTimeDuration = (startTime, endTime) => {
   let endTimeMins = endTime.hours * 60 + endTime.mins;
   let diff = endTimeMins - startTimeMins;
   let diffTime = {
+    commonTime: diff,
     hours: Math.floor(diff / 60),
     mins: diff % 60
   };

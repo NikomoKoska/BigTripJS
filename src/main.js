@@ -1,6 +1,5 @@
 import {Menu} from '../src/components/menu.js';
 import {Filter} from './components/filters.js';
-import {Sort} from './components/sort.js';
 import {TripDate} from './components/tripDate.js';
 import {Route} from './components/route.js';
 import {NoTripEvent} from './components/noTripEvent.js';
@@ -62,10 +61,6 @@ if (tripEventsMock.length) {
 }
 menuArray.forEach((menuPoint) => renderMenu(menuPoint));
 filtersArray.forEach((filter) => renderFilter(filter));
-if (tripEventsMock.length) {
-  const sort = new Sort().getElement();
-  render(tripEventsContainer, sort, Positions.AFTERBEGIN);
-}
 tripEventsContainer.appendChild(tripDaysList);
 if (tripEventsMock.length) {
   render(tripDaysItem, tripDate, Positions.AFTERBEGIN);
