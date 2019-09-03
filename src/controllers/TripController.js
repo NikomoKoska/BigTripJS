@@ -68,6 +68,22 @@ class TripController {
       document.removeEventListener(`keydown`, onEscKeyDown);
     });
 
+    tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      const formData = new FormData(tripEventEditElement.querySelector(`.event--edit`));
+
+      const entry = {
+        type: formData.get(`event-type`),
+        city: formData.get(`event-destination`),
+        timeStart: formData.get(`event-start-time`),
+        timeEnd: formData.get(`event-end-time`),
+        price: formData.get(`event-price`),
+      };
+      console.log(entry);
+
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    });
+
     render(this._container, tripEventElement, Positions.BEFOREEND);
   }
 

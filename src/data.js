@@ -52,7 +52,7 @@ const createSet = (array, maxSize, minSize = 1, probability = 0.5) => {
 };
 
 const getPoint = () => ({
-  type: [`bus to`, `check-in at`, `drive to`, `flight to`, `restaurant at`, `ship to`, `sightseeing at`, `taxi to`, `train to`, `transport to`, `trip to`][Math.floor(Math.random() * 11)],
+  type: [`bus to`, `check-in at`, `drive to`, `flight to`, `restaurant at`, `ship to`, `sightseeing at`, `taxi to`, `train to`, `transport to`][Math.floor(Math.random() * 10)],
   city: Array.from(createSet(allCities, 1))[0],
   photo: [`http://picsum.photos/300/150?r=${Math.random()}`, `http://picsum.photos/300/150?r=${Math.random()}`, `http://picsum.photos/300/150?r=${Math.random()}`],
   description: Array.from(createSet(descriptionTextArr, 3)).join(` `),
