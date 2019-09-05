@@ -1,13 +1,16 @@
-import {TripEvent} from '../components/tripEvent.js';
-import {TripEventEdit} from '../components/tripEventEdit.js';
+import {TripEventController} from './tripEventController.js';
 import {Sort} from '../components/sort.js';
-import {render, Positions} from '../utils.js';
+import {render, unrender, Positions} from '../utils.js';
 
 class TripController {
   constructor(container, tripEvents) {
     this._container = container;
     this._tripEvents = tripEvents;
     this._sort = new Sort();
+
+    this._subscriptions = [];
+    this._onChangeView = this._onChangeView.bind(this);
+    this._onDataChange = this._onDataChange.bind(this);
   }
 
   init() {
@@ -17,74 +20,28 @@ class TripController {
     this._sort.getElement().addEventListener(`click`, (evt) => {
       this._onSortClick(evt);
     });
+  }
 
+  _renderBoard(tripEvents) {
+    unrender(this._container);
+    this._container.innerHTML = '';
+    render(document.querySelector(`.trip-days__item`), this._container, Positions.BEFOREEND);
+    this._tripEvents.forEach((tripEvent) => this._renderTripEvent(tripEvent));
   }
 
   _renderTripEvent(tripEventsMockParam) {
-    const tripEvent = new TripEvent(tripEventsMockParam);
-    const tripEventEdit = new TripEventEdit(tripEventsMockParam);
+    const tripEventController = new TripEventController(this._container, tripEventsMockParam, this._onDataChange, this._onChangeView);
+    this._subscriptions.push(tripEventController.setDefaultView.bind(tripEventController));
+  }
 
-    const tripEventElement = tripEvent.getElement();
-    const tripEventEditElement = tripEventEdit.getElement();
+  _onChangeView() {
+    this._subscriptions.forEach((it) => it());
+  }
 
-    const onEscKeyDown = (evt) => {
-      if (evt.key === `Escape` || evt.key === `Esc`) {
-        this._container.replaceChild(tripEventElement, tripEventEditElement);
-        document.removeEventListener(`keydown`, onEscKeyDown);
-      }
-    };
-
-    tripEventElement.querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
-      this._container.replaceChild(tripEventEditElement, tripEventElement);
-      document.addEventListener(`keydown`, onEscKeyDown);
-    });
-
-    tripEventEditElement.querySelector(`.event__input--destination`).addEventListener(`focus`, () => {
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
-
-    tripEventEditElement.querySelectorAll(`.event__input--time`).forEach((it) => it.addEventListener(`focus`, () => {
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    }));
-
-    tripEventEditElement.querySelector(`.event__input--price`).addEventListener(`focus`, () => {
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
-
-    tripEventEditElement.querySelector(`.event__input--destination`).addEventListener(`blur`, () => {
-      document.addEventListener(`keydown`, onEscKeyDown);
-    });
-
-    tripEventEditElement.querySelectorAll(`.event__input--time`).forEach((it) => it.addEventListener(`blur`, () => {
-      document.addEventListener(`keydown`, onEscKeyDown);
-    }));
-
-    tripEventEditElement.querySelector(`.event__input--price`).addEventListener(`blur`, () => {
-      document.addEventListener(`keydown`, onEscKeyDown);
-    });
-
-    tripEventEditElement.querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
-      this._container.replaceChild(tripEventElement, tripEventEditElement);
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
-
-    tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      const formData = new FormData(tripEventEditElement.querySelector(`.event--edit`));
-
-      const entry = {
-        type: formData.get(`event-type`),
-        city: formData.get(`event-destination`),
-        timeStart: formData.get(`event-start-time`),
-        timeEnd: formData.get(`event-end-time`),
-        price: formData.get(`event-price`),
-      };
-      console.log(entry);
-
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
-
-    render(this._container, tripEventElement, Positions.BEFOREEND);
+  _onDataChange(newData, oldData) {
+    this._tripEvents[this._tripEvents.findIndex((it) => it === oldData)] = newData;
+    console.log(this._tripEvents);
+    this._renderBoard(this._tripEvents);
   }
 
   _onSortClick(evt) {
@@ -120,6 +77,7 @@ class TripController {
         break;
     }
   }
+
 }
 
 export {TripController};
