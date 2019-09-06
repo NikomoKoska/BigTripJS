@@ -24,7 +24,7 @@ class TripController {
 
   _renderBoard(tripEvents) {
     unrender(this._container);
-    this._container.innerHTML = '';
+    this._container.innerHTML = ``;
     render(document.querySelector(`.trip-days__item`), this._container, Positions.BEFOREEND);
     this._tripEvents.forEach((tripEvent) => this._renderTripEvent(tripEvent));
   }
@@ -40,7 +40,6 @@ class TripController {
 
   _onDataChange(newData, oldData) {
     this._tripEvents[this._tripEvents.findIndex((it) => it === oldData)] = newData;
-    console.log(this._tripEvents);
     this._renderBoard(this._tripEvents);
   }
 

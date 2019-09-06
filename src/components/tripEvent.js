@@ -50,11 +50,11 @@ class TripEvent extends AbstractComponent {
 
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-          ${this._options.map((option) => `<li class="event__offer">
+          ${this._options.map((option) => (option.isApply) ? `<li class="event__offer">
             <span class="event__offer-title">${option.name}</span>
             &plus;
             &euro;&nbsp;<span class="event__offer-price">${option.price}</span>
-            </li>`).join(``)}
+            </li>` : ``).join(``)}
         </ul>
 
         <button class="event__rollup-btn" type="button">

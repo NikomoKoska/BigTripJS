@@ -59,10 +59,15 @@ class TripEventController {
       document.removeEventListener(`keydown`, onEscKeyDown);
     });
 
-    tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      this._container.replaceChild(tripEventElement, tripEventEditElement);
-    });
+    // tripEventEditElement.querySelector(`.event__offer-label`).addEventListener(`click`, () => {
+    //   console.log(`ttt`);
+    //   if (this.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).hasAttribute(`checked`)) {
+    //     this.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).removeAttribute(`checked`);
+    //   } else {
+    //     this.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).setAttribute(`checked`);
+    //   }
+    // });
+
 
     tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
@@ -80,47 +85,54 @@ class TripEventController {
           mins: parseInt(formData.get(`event-end-time`).split(` `)[1].split(`:`)[1], 10),
         },
         price: formData.get(`event-price`),
-        options: Array.from(document.querySelectorAll(`.event__offer-checkbox[checked]`)).map((it) => {
+        options: Array.from(document.querySelectorAll(`.event__offer-checkbox`)).map((it) => {
           if (it.getAttribute(`id`) === `event-offer-luggage-1`) {
             return {
               name: `Add luggage`,
               price: 10,
-              isApply: true,
+              isApply: it.hasAttribute(`checked`),
             };
           }
           if (it.getAttribute(`id`) === `event-offer-comfort-1`) {
             return {
               name: `Switch to comfort class`,
               price: 150,
-              isApply: true,
+              isApply: it.hasAttribute(`checked`),
             };
           }
           if (it.getAttribute(`id`) === `event-offer-meal-1`) {
             return {
               name: `Add meal`,
               price: 2,
-              isApply: true,
+              isApply: it.hasAttribute(`checked`),
             };
           }
           if (it.getAttribute(`id`) === `event-offer-seats-1`) {
             return {
               name: `Choose seats`,
               price: 9,
-              isApply: true,
+              isApply: it.hasAttribute(`checked`),
             };
           }
           if (it.getAttribute(`id`) === `event-offer-train-1`) {
             return {
               name: `Travel by train`,
               price: 40,
-              isApply: true,
+              isApply: it.hasAttribute(`checked`),
             };
           }
           return [];
         }),
+        description: document.querySelector(`.event__destination-description`).innerHTML,
+        photo: Array.from(document.querySelectorAll(`.event__photo`)).map((it) => it.getAttribute(`src`)),
       };
 
-      console.log(entry);
+      console.log(entry.options);
+
+      tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (evt) => {
+        evt.preventDefault();
+        this._container.replaceChild(tripEventElement, tripEventEditElement);
+      });
 
       this._onDataChange(entry, this._data);
 
@@ -136,11 +148,11 @@ class TripEventController {
       this._container.getElement().replaceChild(this._tripEvent.getElement(), this._tripEventEdit.getElement());
     }
   }
-  _addPrepositionToType (type) {
-    if (type === 'bus' ||  type ===  `drive` || type ===  `flight` || type === `ship` || type ===  `taxi` || type ===  `train`|| type ===   `transport`) {
-      type += ' to';
-    } else if (type === `check-in` || type === `restaurant`  || type === `sightseeing` ) {
-      type += ' at';
+  _addPrepositionToType(type) {
+    if (type === `bus` || type === `drive` || type === `flight` || type === `ship` || type === `taxi` || type === `train` || type === `transport`) {
+      type += ` to`;
+    } else if (type === `check-in` || type === `restaurant` || type === `sightseeing`) {
+      type += ` at`;
     }
     return type;
   }

@@ -147,8 +147,7 @@ class TripEventEdit extends AbstractComponent {
             <div class="event__available-offers">
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1"
-                type="checkbox" name="event-offer-luggage" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Add luggage`)).some((opt) => opt === true) ? `checked` : ``}>
+                type="checkbox" name="event-offer-luggage" ${this._options[0].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-luggage-1">
                   <span class="event__offer-title">Add luggage</span>
                   &plus;
@@ -158,8 +157,7 @@ class TripEventEdit extends AbstractComponent {
 
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox"
-                name="event-offer-comfort" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Switch to comfort class`)).some((opt) => opt === true) ? `checked` : ``}>
+                name="event-offer-comfort" ${this._options[1].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-comfort-1">
                   <span class="event__offer-title">Switch to comfort class</span>
                   &plus;
@@ -169,8 +167,7 @@ class TripEventEdit extends AbstractComponent {
 
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox"
-                name="event-offer-meal" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Add meal`)).some((opt) => opt === true) ? `checked` : ``}>
+                name="event-offer-meal" ${this._options[2].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-meal-1">
                   <span class="event__offer-title">Add meal</span>
                   &plus;
@@ -180,8 +177,7 @@ class TripEventEdit extends AbstractComponent {
 
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox"
-                 name="event-offer-seats" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Choose seats`)).some((opt) => opt === true) ? `checked` : ``}>
+                 name="event-offer-seats" ${this._options[3].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-seats-1">
                   <span class="event__offer-title">Choose seats</span>
                   &plus;
@@ -191,8 +187,7 @@ class TripEventEdit extends AbstractComponent {
 
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox"
-                 name="event-offer-train" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Travel by train`)).some((opt) => opt === true) ? `checked` : ``}>
+                 name="event-offer-train" ${this._options[4].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-train-1">
                   <span class="event__offer-title">Travel by train</span>
                   &plus;
