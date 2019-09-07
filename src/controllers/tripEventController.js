@@ -131,8 +131,8 @@ class PointController {
         photo: Array.from(document.querySelectorAll(`.event__photo`)).map((it) => it.getAttribute(`src`)),
       };
 
-      tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (evt) => {
-        evt.preventDefault();
+      tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (event) => {
+        event.preventDefault();
         this._container.replaceChild(tripEventElement, tripEventEditElement);
       });
 

@@ -22,7 +22,7 @@ class TripController {
     });
   }
 
-  _renderBoard(tripEvents) {
+  _renderBoard() {
     unrender(this._container);
     this._container.innerHTML = ``;
     render(document.querySelector(`.trip-days__item`), this._container, Positions.BEFOREEND);
