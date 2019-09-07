@@ -2,7 +2,7 @@ import {TripEvent} from '../components/tripEvent.js';
 import {TripEventEdit} from '../components/tripEventEdit.js';
 import {render, Positions} from '../utils.js';
 
-class TripEventController {
+class PointController {
   constructor(container, data, onDataChange, onChangeView) {
     this._container = container;
     this._data = data;
@@ -25,7 +25,9 @@ class TripEventController {
       }
     };
 
-    tripEventElement.querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
+    tripEventElement.querySelector(`.event__rollup-btn`).addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      this._onChangeView();
       this._container.replaceChild(tripEventEditElement, tripEventElement);
       document.addEventListener(`keydown`, onEscKeyDown);
     });
@@ -59,14 +61,13 @@ class TripEventController {
       document.removeEventListener(`keydown`, onEscKeyDown);
     });
 
-    // tripEventEditElement.querySelector(`.event__offer-label`).addEventListener(`click`, () => {
-    //   console.log(`ttt`);
-    //   if (this.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).hasAttribute(`checked`)) {
-    //     this.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).removeAttribute(`checked`);
-    //   } else {
-    //     this.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).setAttribute(`checked`);
-    //   }
-    // });
+    tripEventEditElement.querySelectorAll(`.event__offer-label`).forEach((it) => it.addEventListener(`click`, () => {
+      if (it.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).hasAttribute(`checked`)) {
+        it.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).removeAttribute(`checked`);
+      } else {
+        it.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).setAttribute(`checked`, `checked`);
+      }
+    }));
 
 
     tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (evt) => {
@@ -76,6 +77,9 @@ class TripEventController {
       const entry = {
         type: this._addPrepositionToType(formData.get(`event-type`)),
         city: formData.get(`event-destination`),
+        date: new Date(`20` + formData.get(`event-start-time`).split(` `)[0].split(`/`)[2],
+            formData.get(`event-start-time`).split(` `)[0].split(`/`)[1],
+            formData.get(`event-start-time`).split(` `)[0].split(`/`)[0]),
         timeStart: {
           hours: parseInt(formData.get(`event-start-time`).split(` `)[1].split(`:`)[0], 10),
           mins: parseInt(formData.get(`event-start-time`).split(` `)[1].split(`:`)[1], 10),
@@ -127,8 +131,6 @@ class TripEventController {
         photo: Array.from(document.querySelectorAll(`.event__photo`)).map((it) => it.getAttribute(`src`)),
       };
 
-      console.log(entry.options);
-
       tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (evt) => {
         evt.preventDefault();
         this._container.replaceChild(tripEventElement, tripEventEditElement);
@@ -144,8 +146,8 @@ class TripEventController {
   }
 
   setDefaultView() {
-    if (this._container.getElement().contains(this._tripEventEdit.getElement())) {
-      this._container.getElement().replaceChild(this._tripEvent.getElement(), this._tripEventEdit.getElement());
+    if (this._container.contains(this._tripEventEdit.getElement())) {
+      this._container.replaceChild(this._tripEvent.getElement(), this._tripEventEdit.getElement());
     }
   }
   _addPrepositionToType(type) {
@@ -158,4 +160,4 @@ class TripEventController {
   }
 }
 
-export {TripEventController};
+export {PointController};

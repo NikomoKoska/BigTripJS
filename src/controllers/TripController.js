@@ -1,4 +1,4 @@
-import {TripEventController} from './tripEventController.js';
+import {PointController} from './tripEventController.js';
 import {Sort} from '../components/sort.js';
 import {render, unrender, Positions} from '../utils.js';
 
@@ -30,7 +30,7 @@ class TripController {
   }
 
   _renderTripEvent(tripEventsMockParam) {
-    const tripEventController = new TripEventController(this._container, tripEventsMockParam, this._onDataChange, this._onChangeView);
+    const tripEventController = new PointController(this._container, tripEventsMockParam, this._onDataChange, this._onChangeView);
     this._subscriptions.push(tripEventController.setDefaultView.bind(tripEventController));
   }
 
