@@ -1,5 +1,6 @@
 import {TripEvent} from '../components/tripEvent.js';
 import {TripEventEdit} from '../components/tripEventEdit.js';
+import {Types, Options} from '../consts.js';
 import {render, Positions} from '../utils.js';
 
 class PointController {
@@ -64,9 +65,23 @@ class PointController {
     tripEventEditElement.querySelectorAll(`.event__offer-label`).forEach((it) => it.addEventListener(`click`, () => {
       if (it.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).hasAttribute(`checked`)) {
         it.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).removeAttribute(`checked`);
+        it.style.backgroundColor = `#f2f2f2`;
       } else {
-        it.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).setAttribute(`checked`, `checked`);
+        it.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).setAttribute(`checked`, ``);
+        it.style.backgroundColor = `#0d8ae4`;
       }
+    }));
+
+    tripEventEditElement.querySelectorAll(`.event__type-label`).forEach((it) => it.addEventListener(`click`, () => {
+      const type = it.innerHTML;
+      it.closest(`.event__type-wrapper`).querySelector(`.event__type-icon`).setAttribute(`src`, `img/icons/${type.toLowerCase()}.png`);
+      it.closest(`.event__header`).querySelector(`.event__label`).innerHTML = this._addPrepositionToType(type.toLowerCase());
+      it.closest(`.event__header`).querySelector(`.event__type-toggle`).removeAttribute(`checked`);
+      it.closest(`.event__header`).querySelector(`.event__type-list`).style.display = `none`;
+    }));
+
+    tripEventEditElement.querySelectorAll(`.event__type-btn`).forEach((it) => it.addEventListener(`click`, () => {
+      it.closest(`.event__header`).querySelector(`.event__type-list`).style.display = `block`;
     }));
 
 
@@ -92,35 +107,35 @@ class PointController {
         options: Array.from(document.querySelectorAll(`.event__offer-checkbox`)).map((it) => {
           if (it.getAttribute(`id`) === `event-offer-luggage-1`) {
             return {
-              name: `Add luggage`,
+              name: Options.LUGGAGE,
               price: 10,
               isApply: it.hasAttribute(`checked`),
             };
           }
           if (it.getAttribute(`id`) === `event-offer-comfort-1`) {
             return {
-              name: `Switch to comfort class`,
+              name: Options.COMFORT,
               price: 150,
               isApply: it.hasAttribute(`checked`),
             };
           }
           if (it.getAttribute(`id`) === `event-offer-meal-1`) {
             return {
-              name: `Add meal`,
+              name: Options.MEAL,
               price: 2,
               isApply: it.hasAttribute(`checked`),
             };
           }
           if (it.getAttribute(`id`) === `event-offer-seats-1`) {
             return {
-              name: `Choose seats`,
+              name: Options.SEATS,
               price: 9,
               isApply: it.hasAttribute(`checked`),
             };
           }
           if (it.getAttribute(`id`) === `event-offer-train-1`) {
             return {
-              name: `Travel by train`,
+              name: Options.TRAIN,
               price: 40,
               isApply: it.hasAttribute(`checked`),
             };
@@ -151,10 +166,10 @@ class PointController {
     }
   }
   _addPrepositionToType(type) {
-    if (type === `bus` || type === `drive` || type === `flight` || type === `ship` || type === `taxi` || type === `train` || type === `transport`) {
-      type += ` to`;
-    } else if (type === `check-in` || type === `restaurant` || type === `sightseeing`) {
+    if (type === Types.CHECK_IN || type === Types.RESTAURANT || type === Types.SIGHTSEEING) {
       type += ` at`;
+    } else {
+      type += ` to`;
     }
     return type;
   }
