@@ -31,37 +31,37 @@ class TripEventEdit extends AbstractComponent {
                 <legend class="visually-hidden">Transfer</legend>
 
                 <div class="event__type-item">
-                  <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
+                  <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi" ${(this._type === `taxi to`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
                 </div>
 
                 <div class="event__type-item">
-                  <input id="event-type-bus-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="bus">
+                  <input id="event-type-bus-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="bus" ${(this._type === `bus to`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--bus" for="event-type-bus-1">Bus</label>
                 </div>
 
                 <div class="event__type-item">
-                  <input id="event-type-train-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="train">
+                  <input id="event-type-train-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="train" ${(this._type === `train to`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--train" for="event-type-train-1">Train</label>
                 </div>
 
                 <div class="event__type-item">
-                  <input id="event-type-ship-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship">
+                  <input id="event-type-ship-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship" ${(this._type === `ship to`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--ship" for="event-type-ship-1">Ship</label>
                 </div>
 
                 <div class="event__type-item">
-                  <input id="event-type-transport-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="transport">
+                  <input id="event-type-transport-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="transport" ${(this._type === `transport to`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--transport" for="event-type-transport-1">Transport</label>
                 </div>
 
                 <div class="event__type-item">
-                  <input id="event-type-drive-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="drive">
+                  <input id="event-type-drive-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="drive" ${(this._type === `drive to`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--drive" for="event-type-drive-1">Drive</label>
                 </div>
 
                 <div class="event__type-item">
-                  <input id="event-type-flight-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="flight" checked>
+                  <input id="event-type-flight-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="flight" ${(this._type === `flight to`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--flight" for="event-type-flight-1">Flight</label>
                 </div>
               </fieldset>
@@ -70,17 +70,17 @@ class TripEventEdit extends AbstractComponent {
                 <legend class="visually-hidden">Activity</legend>
 
                 <div class="event__type-item">
-                  <input id="event-type-check-in-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="check-in">
+                  <input id="event-type-check-in-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="check-in" ${(this._type === `check-in at`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-1">Check-in</label>
                 </div>
 
                 <div class="event__type-item">
-                  <input id="event-type-sightseeing-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="sightseeing">
+                  <input id="event-type-sightseeing-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="sightseeing" ${(this._type === `sightseeing at`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-1">Sightseeing</label>
                 </div>
 
                 <div class="event__type-item">
-                  <input id="event-type-restaurant-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="restaurant">
+                  <input id="event-type-restaurant-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="restaurant" ${(this._type === `restaurant at`) ? `checked` : `` }>
                   <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-1">Restaurant</label>
                 </div>
               </fieldset>
@@ -147,8 +147,7 @@ class TripEventEdit extends AbstractComponent {
             <div class="event__available-offers">
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1"
-                type="checkbox" name="event-offer-luggage" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Add luggage`)).some((opt) => opt === true) ? `checked` : ``}>
+                type="checkbox" name="event-offer-luggage" ${this._options[0].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-luggage-1">
                   <span class="event__offer-title">Add luggage</span>
                   &plus;
@@ -158,8 +157,7 @@ class TripEventEdit extends AbstractComponent {
 
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox"
-                name="event-offer-comfort" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Switch to comfort class`)).some((opt) => opt === true) ? `checked` : ``}>
+                name="event-offer-comfort" ${this._options[1].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-comfort-1">
                   <span class="event__offer-title">Switch to comfort class</span>
                   &plus;
@@ -169,8 +167,7 @@ class TripEventEdit extends AbstractComponent {
 
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox"
-                name="event-offer-meal" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Add meal`)).some((opt) => opt === true) ? `checked` : ``}>
+                name="event-offer-meal" ${this._options[2].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-meal-1">
                   <span class="event__offer-title">Add meal</span>
                   &plus;
@@ -180,8 +177,7 @@ class TripEventEdit extends AbstractComponent {
 
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox"
-                 name="event-offer-seats" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Choose seats`)).some((opt) => opt === true) ? `checked` : ``}>
+                 name="event-offer-seats" ${this._options[3].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-seats-1">
                   <span class="event__offer-title">Choose seats</span>
                   &plus;
@@ -191,8 +187,7 @@ class TripEventEdit extends AbstractComponent {
 
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox"
-                 name="event-offer-train" ${this._options.map((option) => Object.values(option)
-                  .some((it) => it === `Travel by train`)).some((opt) => opt === true) ? `checked` : ``}>
+                 name="event-offer-train" ${this._options[4].isApply ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-train-1">
                   <span class="event__offer-title">Travel by train</span>
                   &plus;
