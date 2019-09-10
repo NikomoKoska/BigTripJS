@@ -1,4 +1,6 @@
 import {AbstractComponent} from './abstract-component.js';
+import '../../node_modules/flatpickr/dist/flatpickr.min.css';
+import '../../node_modules/flatpickr/dist/themes/light.css';
 
 class TripEventEdit extends AbstractComponent {
   constructor({type, city, photo, description, isFavorite, date, timeStart, timeEnd, price, options}) {

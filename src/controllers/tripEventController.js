@@ -2,6 +2,7 @@ import {TripEvent} from '../components/tripEvent.js';
 import {TripEventEdit} from '../components/tripEventEdit.js';
 import {Types, Options} from '../consts.js';
 import {render, Positions} from '../utils.js';
+import flatpickr from 'flatpickr';
 
 class PointController {
   constructor(container, data, onDataChange, onChangeView) {
@@ -16,8 +17,11 @@ class PointController {
   }
 
   create() {
+
     const tripEventElement = this._tripEvent.getElement();
     const tripEventEditElement = this._tripEventEdit.getElement();
+
+    flatpickr(tripEventEditElement.querySelectorAll(`.event__input--time`));
 
     const onEscKeyDown = (evt) => {
       if (evt.key === `Escape` || evt.key === `Esc`) {
