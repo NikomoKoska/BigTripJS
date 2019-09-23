@@ -2,6 +2,7 @@ import {TripEvent} from '../components/tripEvent.js';
 import {TripEventEdit} from '../components/tripEventEdit.js';
 import {Types, Options} from '../consts.js';
 import {render, Positions} from '../utils.js';
+import flatpickr from 'flatpickr';
 
 class PointController {
   constructor(container, data, onDataChange, onChangeView) {
@@ -16,8 +17,11 @@ class PointController {
   }
 
   create() {
+
     const tripEventElement = this._tripEvent.getElement();
     const tripEventEditElement = this._tripEventEdit.getElement();
+
+    flatpickr(tripEventEditElement.querySelectorAll(`.event__input--time`), {enableTime: true, dateFormat: `d.m.Y H:i`});
 
     const onEscKeyDown = (evt) => {
       if (evt.key === `Escape` || evt.key === `Esc`) {
@@ -92,12 +96,12 @@ class PointController {
       const entry = {
         type: this._addPrepositionToType(formData.get(`event-type`)),
         city: formData.get(`event-destination`),
-        date: new Date(`20` + formData.get(`event-start-time`).split(` `)[0].split(`/`)[2],
-            formData.get(`event-start-time`).split(` `)[0].split(`/`)[1],
-            formData.get(`event-start-time`).split(` `)[0].split(`/`)[0]),
+        date: new Date(formData.get(`event-start-time`).split(` `)[0].split(`.`)[2],
+            formData.get(`event-start-time`).split(` `)[0].split(`.`)[1],
+            formData.get(`event-start-time`).split(` `)[0].split(`.`)[0]),
         timeStart: {
-          hours: parseInt(formData.get(`event-start-time`).split(` `)[1].split(`:`)[0], 10),
-          mins: parseInt(formData.get(`event-start-time`).split(` `)[1].split(`:`)[1], 10),
+          hours: formData.get(`event-start-time`).split(` `)[1].split(`:`)[0],
+          mins: formData.get(`event-start-time`).split(` `)[1].split(`:`)[1],
         },
         timeEnd: {
           hours: parseInt(formData.get(`event-end-time`).split(` `)[1].split(`:`)[0], 10),
@@ -152,7 +156,6 @@ class PointController {
       });
 
       this._onDataChange(entry, this._data);
-
 
       document.removeEventListener(`keydown`, onEscKeyDown);
     });
