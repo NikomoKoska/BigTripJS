@@ -34,7 +34,7 @@ tripDaysItem.appendChild(tripEventsList);
 
 // Создание объектов и массивов объектов для каждого компонента и отрисовка элементов
 
-const POINTS_COUNT = 3;
+const POINTS_COUNT = 5;
 
 const tripEventsMock = new Array(POINTS_COUNT).fill(``).map(getPoint);
 const filtersArray = new Array(1).fill(``).map(getFilters);

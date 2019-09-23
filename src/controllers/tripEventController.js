@@ -67,7 +67,7 @@ class PointController {
     });
 
     tripEventEditElement.querySelector(`.event__reset-btn`).addEventListener(`click`, () => {
-      this._onDataChange(null, null);
+      this._onDataChange(null, this._data);
     });
 
     tripEventEditElement.querySelectorAll(`.event__offer-label`).forEach((it) => it.addEventListener(`click`, () => {

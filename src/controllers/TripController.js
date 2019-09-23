@@ -103,7 +103,7 @@ class TripController {
   }
 
   _onDataChange(newData, oldData) {
-    if (newData === null && oldData === null) {
+    if (newData === null && oldData !== null) {
       this._tripEvents.splice([this._tripEvents.findIndex((it) => it === oldData)], 1);
       this._renderBoard(this._tripEvents);
     } else if (newData !== null && oldData === null) {
