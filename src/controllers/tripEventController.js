@@ -21,7 +21,7 @@ class PointController {
     const tripEventElement = this._tripEvent.getElement();
     const tripEventEditElement = this._tripEventEdit.getElement();
 
-    flatpickr(tripEventEditElement.querySelectorAll(`.event__input--time`), {enableTime: true, dateFormat: "d.m.Y H:i",});
+    flatpickr(tripEventEditElement.querySelectorAll(`.event__input--time`), {enableTime: true, dateFormat: `d.m.Y H:i`});
 
     const onEscKeyDown = (evt) => {
       if (evt.key === `Escape` || evt.key === `Esc`) {
