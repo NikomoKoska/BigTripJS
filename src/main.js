@@ -34,7 +34,7 @@ tripDaysItem.appendChild(tripEventsList);
 
 // Создание объектов и массивов объектов для каждого компонента и отрисовка элементов
 
-const POINTS_COUNT = 5;
+const POINTS_COUNT = 3;
 
 const tripEventsMock = new Array(POINTS_COUNT).fill(``).map(getPoint);
 const filtersArray = new Array(1).fill(``).map(getFilters);
@@ -73,25 +73,35 @@ const tripController = new TripController(tripEventsBlock, tripEventsMock);
 tripController.init();
 
 const stat = new Stat().getElement();
-render(document.querySelector('main'), stat, Positions.BEFOREEND);
+render(document.querySelector(`main`), stat, Positions.BEFOREEND);
 
 // Кнопки на форме в заголовке.
-const mainButtons = document.querySelectorAll('.trip-tabs__btn');
+const mainButtons = document.querySelectorAll(`.trip-tabs__btn`);
 const tripButton = mainButtons[0];
 const statpButton = mainButtons[1];
 
-statpButton.addEventListener('click', (evt) => {
-  tripButton.classList.remove('trip-tabs__btn--active');
-  statpButton.classList.add('trip-tabs__btn--active');
-  document.querySelector('.trip-events').classList.add('visually-hidden');
-  document.querySelector('.statistics').classList.remove('visually-hidden');
+statpButton.addEventListener(`click`, () => {
+  tripButton.classList.remove(`trip-tabs__btn--active`);
+  statpButton.classList.add(`trip-tabs__btn--active`);
+  document.querySelector(`.trip-events`).classList.add(`visually-hidden`);
+  document.querySelector(`.statistics`).classList.remove(`visually-hidden`);
 });
 
-tripButton.addEventListener('click', (evt) => {
-  statpButton.classList.remove('trip-tabs__btn--active');
-  tripButton.classList.add('trip-tabs__btn--active');
-  document.querySelector('.statistics').classList.add('visually-hidden');
-  document.querySelector('.trip-events').classList.remove('visually-hidden');
+tripButton.addEventListener(`click`, () => {
+  statpButton.classList.remove(`trip-tabs__btn--active`);
+  tripButton.classList.add(`trip-tabs__btn--active`);
+  document.querySelector(`.statistics`).classList.add(`visually-hidden`);
+  document.querySelector(`.trip-events`).classList.remove(`visually-hidden`);
+});
+
+document.querySelector(`.trip-main__event-add-btn`).addEventListener(`click`, () => {
+  document.querySelector(`.trip-events__item.event.event--edit`).classList.remove(`visually-hidden`);
+  document.querySelector(`.trip-main__event-add-btn`).setAttribute(`disabled`, ``);
+});
+
+document.querySelector(`.trip-events__item.event.event--edit .event__reset-btn`).addEventListener(`click`, () => {
+  document.querySelector(`.trip-events__item.event.event--edit`).classList.add(`visually-hidden`);
+  document.querySelector(`.trip-main__event-add-btn`).removeAttribute(`disabled`);
 });
 
 export {POINTS_COUNT, tripEventsMock};

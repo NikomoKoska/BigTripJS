@@ -21,7 +21,7 @@ class PointController {
     const tripEventElement = this._tripEvent.getElement();
     const tripEventEditElement = this._tripEventEdit.getElement();
 
-    flatpickr(tripEventEditElement.querySelectorAll(`.event__input--time`), {enableTime: true, dateFormat: `d.m.Y H:i`});
+    flatpickr(document.querySelectorAll(`.event__input--time`), {enableTime: true, dateFormat: `d.m.Y H:i`});
 
     const onEscKeyDown = (evt) => {
       if (evt.key === `Escape` || evt.key === `Esc`) {
@@ -66,6 +66,10 @@ class PointController {
       document.removeEventListener(`keydown`, onEscKeyDown);
     });
 
+    tripEventEditElement.querySelector(`.event__reset-btn`).addEventListener(`click`, () => {
+      this._onDataChange(null, null);
+    });
+
     tripEventEditElement.querySelectorAll(`.event__offer-label`).forEach((it) => it.addEventListener(`click`, () => {
       if (it.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).hasAttribute(`checked`)) {
         it.closest(`.event__offer-selector`).querySelector(`.event__offer-checkbox`).removeAttribute(`checked`);
@@ -76,7 +80,7 @@ class PointController {
       }
     }));
 
-    tripEventEditElement.querySelectorAll(`.event__type-label`).forEach((it) => it.addEventListener(`click`, () => {
+    document.querySelectorAll(`.event__type-label`).forEach((it) => it.addEventListener(`click`, () => {
       const type = it.innerHTML;
       it.closest(`.event__type-wrapper`).querySelector(`.event__type-icon`).setAttribute(`src`, `img/icons/${type.toLowerCase()}.png`);
       it.closest(`.event__header`).querySelector(`.event__label`).innerHTML = this._addPrepositionToType(type.toLowerCase());
@@ -87,7 +91,6 @@ class PointController {
     tripEventEditElement.querySelectorAll(`.event__type-btn`).forEach((it) => it.addEventListener(`click`, () => {
       it.closest(`.event__header`).querySelector(`.event__type-list`).style.display = `block`;
     }));
-
 
     tripEventEditElement.querySelector(`.event__save-btn`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
