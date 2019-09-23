@@ -106,15 +106,14 @@ class TripEventEdit extends AbstractComponent {
               From
             </label>
             <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${new Date(this._date)
-              .getDate()}/${new Date(this._date).getMonth()}/${new Date(this._date).getFullYear().toString()
-              .slice(2, 4)} ${this._timeStart.hours}:${this._timeStart.mins}">
+              .getDate()}.${new Date(this._date).getMonth()}.${new Date(this._date).getFullYear().toString()} ${this._timeStart.hours}:${this._timeStart.mins}
+              ">
             &mdash;
             <label class="visually-hidden" for="event-end-time-1">
               To
             </label>
             <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._date)
-              .getDate()}/${new Date(this._date).getMonth()}/${new Date(this._date).getFullYear().toString()
-              .slice(2, 4)} ${this._timeEnd.hours}:${this._timeEnd.mins}">
+              .getDate()}.${new Date(this._date).getMonth()}.${new Date(this._date).getFullYear().toString()} ${this._timeEnd.hours}:${this._timeEnd.mins}">
           </div>
 
           <div class="event__field-group  event__field-group--price">

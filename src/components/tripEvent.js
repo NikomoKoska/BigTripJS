@@ -1,8 +1,8 @@
 import {AbstractComponent} from './abstract-component.js';
 
 const getTimeDuration = (startTime, endTime) => {
-  let startTimeMins = startTime.hours * 60 + startTime.mins;
-  let endTimeMins = endTime.hours * 60 + endTime.mins;
+  let startTimeMins = parseInt(startTime.hours, 10) * 60 + parseInt(startTime.mins, 10);
+  let endTimeMins = parseInt(endTime.hours, 10) * 60 + parseInt(endTime.mins, 10);
   let diff = endTimeMins - startTimeMins;
   let diffTime = {
     commonTime: diff,

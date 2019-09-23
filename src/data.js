@@ -69,7 +69,6 @@ const getPoint = () => ({
 });
 
 let pointsObjectsArray = new Array(POINTS_COUNT).fill(``).map(getPoint);
-
 // Меню
 
 const getMenu = () => ([

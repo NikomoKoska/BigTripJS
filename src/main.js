@@ -2,6 +2,7 @@ import {Menu} from '../src/components/menu.js';
 import {Filter} from './components/filters.js';
 import {TripDate} from './components/tripDate.js';
 import {Route} from './components/route.js';
+import {Stat} from './components/stat.js';
 import {NoTripEvent} from './components/noTripEvent.js';
 import {getPoint, getMenu, getFilters} from './data.js';
 import {render, Positions} from './utils.js';
@@ -70,6 +71,28 @@ if (tripEventsMock.length) {
 const tripEventsBlock = document.querySelector(`.trip-events__list`);
 const tripController = new TripController(tripEventsBlock, tripEventsMock);
 tripController.init();
+
+const stat = new Stat().getElement();
+render(document.querySelector('main'), stat, Positions.BEFOREEND);
+
+// Кнопки на форме в заголовке.
+const mainButtons = document.querySelectorAll('.trip-tabs__btn');
+const tripButton = mainButtons[0];
+const statpButton = mainButtons[1];
+
+statpButton.addEventListener('click', (evt) => {
+  tripButton.classList.remove('trip-tabs__btn--active');
+  statpButton.classList.add('trip-tabs__btn--active');
+  document.querySelector('.trip-events').classList.add('visually-hidden');
+  document.querySelector('.statistics').classList.remove('visually-hidden');
+});
+
+tripButton.addEventListener('click', (evt) => {
+  statpButton.classList.remove('trip-tabs__btn--active');
+  tripButton.classList.add('trip-tabs__btn--active');
+  document.querySelector('.statistics').classList.add('visually-hidden');
+  document.querySelector('.trip-events').classList.remove('visually-hidden');
+});
 
 export {POINTS_COUNT, tripEventsMock};
 
