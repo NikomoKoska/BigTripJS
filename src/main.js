@@ -7,6 +7,7 @@ import {NoTripEvent} from './components/noTripEvent.js';
 import {getPoint, getMenu, getFilters} from './data.js';
 import {render, Positions} from './utils.js';
 import {TripController} from './controllers/TripController.js';
+import {createCharts} from './statistics.js';
 
 const renderFilter = (filtersArrayParam) => {
   const filter = new Filter(filtersArrayParam);
@@ -103,6 +104,8 @@ document.querySelector(`.trip-events__item.event.event--edit .event__reset-btn`)
   document.querySelector(`.trip-events__item.event.event--edit`).classList.add(`visually-hidden`);
   document.querySelector(`.trip-main__event-add-btn`).removeAttribute(`disabled`);
 });
+
+createCharts(POINTS_COUNT, tripEventsMock);
 
 export {POINTS_COUNT, tripEventsMock};
 
