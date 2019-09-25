@@ -37,14 +37,32 @@ const createCharts = (POINTS_COUNT, tripEventsMock) => {
       }]
     },
     options: {
+      plugins: {
+        datalabels: {
+          font: {
+            size: 12,
+          },
+          color: `#000000`,
+        }
+      },
       scales: {
         xAxes: [{
-          stacked: false,
+          display: false,
         }],
         yAxes: [{
-          stacked: false,
           barThickness: 35,
+          ticks: {
+            fontStyle: `bold`,
+            fontSize: 20,
+            fontColor: `#000000`,
+          },
+          gridLines: {
+            display: false,
+          }
         }]
+      },
+      legend: {
+        display: false,
       }
     }
   });
