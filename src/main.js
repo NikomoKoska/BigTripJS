@@ -106,4 +106,3 @@ document.querySelector(`.trip-events__item.event.event--edit .event__reset-btn`)
 
 export {POINTS_COUNT, tripEventsMock};
 
-// New commit
